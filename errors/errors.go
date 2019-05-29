@@ -43,14 +43,18 @@ func (e *Error) Error() string {
 		builder.WriteString(e.Err.Error())
 	} else {
 		if e.Code != "" {
-			fmt.Fprintf(&builder, "<%s> ", e.Code)
+			fmt.Fprintf(&builder, "<%s>", e.Code)
+		}
+		if e.Code != "" && e.Message != "" {
+			// add a space
+			fmt.Fprint(&builder, " ")
 		}
 		builder.WriteString(e.Message)
 	}
 	return builder.String()
 }
 
-// ErrorCode returns the code of the root error, if available. Otherwise returns EINTERNAL.
+// ErrorCode returns the code of the root error, if available.
 func ErrorCode(err error) string {
 	if err == nil {
 		return ""
@@ -59,11 +63,10 @@ func ErrorCode(err error) string {
 	} else if ok && e.Err != nil {
 		return ErrorCode(e.Err)
 	}
-	return EINTERNAL
+	return ""
 }
 
 // ErrorMessage returns the human-readable message of the error, if available.
-// Otherwise returns a generic error message.
 func ErrorMessage(err error) string {
 	if err == nil {
 		return ""
@@ -72,7 +75,7 @@ func ErrorMessage(err error) string {
 	} else if ok && e.Err != nil {
 		return ErrorMessage(e.Err)
 	}
-	return "An internal error has occurred."
+	return ""
 }
 
 // IsNotFound checks if an error is an ENOTOFOUND.
