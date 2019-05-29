@@ -1,2 +1,3 @@
 # go
-Common Go packages
+
+Common packages written in Go.
