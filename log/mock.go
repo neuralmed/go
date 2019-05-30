@@ -2,6 +2,7 @@ package log
 
 import "fmt"
 
+// check that Mock implements the Logger interface at compile time
 var _ Logger = &Mock{}
 
 // Mock implements Logger. All methods delegate to fmt and record the strings for checking
