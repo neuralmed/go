@@ -7,22 +7,22 @@ import (
 
 // based on github.com/unrolled/logger
 
-// requestLoggingMiddleware is an HTTP middleware handler that logs a request. Outputted information
+// Middleware is an HTTP middleware handler that logs a request. Outputted information
 // includes status, method, URL, remote address, user agent, size, and the time it took to process
 // the request.
-type requestLoggingMiddleware struct {
+type Middleware struct {
 	logger Logger
 }
 
-// newLoggingMiddleware returns a new requestLoggingMiddleware.
-func newLoggingMiddleware(baseLogger Logger) *requestLoggingMiddleware {
-	return &requestLoggingMiddleware{
+// NewMiddleware returns a new Middleware.
+func NewMiddleware(baseLogger Logger) *Middleware {
+	return &Middleware{
 		logger: baseLogger,
 	}
 }
 
 // Handler wraps an HTTP handler and logs the request.
-func (l *requestLoggingMiddleware) Handler(next http.Handler) http.Handler {
+func (l *Middleware) Handler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 

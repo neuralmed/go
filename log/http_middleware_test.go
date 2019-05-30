@@ -11,7 +11,7 @@ import (
 
 func TestLoggingMiddleware(t *testing.T) {
 	logger := &Mock{}
-	middleware := newLoggingMiddleware(logger)
+	middleware := NewMiddleware(logger)
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 	})
 
@@ -44,7 +44,7 @@ func TestLoggingMiddleware(t *testing.T) {
 
 func TestHeader(t *testing.T) {
 	logger := &Mock{}
-	middleware := newLoggingMiddleware(logger)
+	middleware := NewMiddleware(logger)
 	statusCode := http.StatusTeapot
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(statusCode)
@@ -73,7 +73,7 @@ func TestHeader(t *testing.T) {
 
 func TestWrite(t *testing.T) {
 	logger := &Mock{}
-	middleware := newLoggingMiddleware(logger)
+	middleware := NewMiddleware(logger)
 	body := "test"
 	bodyBytes := []byte(body)
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
